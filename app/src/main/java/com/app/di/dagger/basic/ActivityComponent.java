@@ -6,8 +6,11 @@ import javax.inject.Singleton;
 
 import dagger.Subcomponent;
 
-//@Subcomponent
-//public interface ActivityComponent {
-//
-//    void inject(MainActivity activity);
-//}
+
+@Singleton
+@Subcomponent(modules = {ShapeModule.class , TiresModule.class})
+public interface ActivityComponent {
+
+    ExampleSubComponent getExampleSubComponent();
+    void inject(MainActivity activity);
+}
