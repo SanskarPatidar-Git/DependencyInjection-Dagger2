@@ -218,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
         to create an object of Login with this credential we need to store this data into component
         So, factory is required to create object with dynamic values in runtime.
 
+        Look in FactoryComponent
 
          */
 
@@ -250,7 +251,6 @@ public class MainActivity extends AppCompatActivity {
         Instead of it we are using subcomponent which will use all dependencies of AppComponent(another)
         it will return the Component object which is declared as subComponent
         appComponent.getComponent.create(); -> Like this
-
          */
         ApplicationComponent applicationComponent1 = ((MyApplication)getApplication()).getApplicationComponent();
         ActivityComponent activityComponent = applicationComponent1.getActivityComponent();
@@ -259,12 +259,26 @@ public class MainActivity extends AppCompatActivity {
         databaseSubComponent = applicationComponent1.getDatabase();
         databaseSubComponent.initDatabase();
 
-
         ExampleSubComponent exampleSubComponent = activityComponent.getExampleSubComponent();
         exampleSubComponent.initDatabaseAgain();
+        /*
+        Here Example sub component need dependency of database which we get from application component
+        so we need a application component which will return ActivityComponent which is subcomponent
+        activity component will use all the dependencies which will provided by application component
+        ApplicationComponent -> Database object
+        ActivityComponent -> ExampleSubComponent object which will take database object provided by
+        applicationComponent.
+         */
 
 
-
+        /*
+        NOTE -
+        When we are using dagger2 we need to add boiler plate code much by defining components etc which
+        will get our app to more complex
+        Instead of dagger2 use Hilt which will create components by itself according to annotations
+        internally hilt also uses dagger
+        Hilt is upper layer of dagger.
+         */
 
         /*
         Navigate to next activity in which we will implement the note app
@@ -274,8 +288,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, DashboardActivity.class));
-                finish();
+                //startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+                //finish();
             }
         });
 
